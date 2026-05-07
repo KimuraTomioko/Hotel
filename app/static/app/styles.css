@@ -1,0 +1,653 @@
+:root {
+    color-scheme: light;
+    --bg: #f6f7f4;
+    --panel: #ffffff;
+    --ink: #20262d;
+    --muted: #66717d;
+    --line: #d9e0dc;
+    --line-strong: #c4cec8;
+    --accent: #146c64;
+    --accent-soft: #e8f4f1;
+    --amber: #a95f12;
+    --amber-soft: #fff3df;
+    --danger: #a13c2f;
+    --danger-soft: #fff1ef;
+    --shadow: 0 12px 30px rgba(31, 41, 55, 0.08);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    background: var(--bg);
+    color: var(--ink);
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    min-height: 40px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    padding: 0 14px;
+    background: var(--accent);
+    color: white;
+    font-size: 14px;
+    font-weight: 750;
+    cursor: pointer;
+}
+
+button:hover {
+    filter: brightness(0.94);
+}
+
+button.ghost {
+    border-color: var(--line);
+    background: white;
+    color: var(--ink);
+}
+
+button.ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    min-height: 39px;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    padding: 9px 10px;
+    background: #fbfcfb;
+    color: var(--ink);
+    outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--accent);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(20, 108, 100, 0.12);
+}
+
+input[type="file"] {
+    min-width: 0;
+    padding: 7px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+label {
+    display: grid;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 750;
+}
+
+h1,
+h2,
+h3,
+p {
+    margin: 0;
+}
+
+h1 {
+    font-size: clamp(24px, 2.4vw, 34px);
+    line-height: 1.08;
+}
+
+h2 {
+    font-size: 17px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 1.2;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 18px clamp(16px, 4vw, 44px);
+    border-bottom: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.94);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+    color: inherit;
+    text-decoration: none;
+}
+
+.brand-mark {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 8px;
+    background: var(--accent);
+    color: white;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.eyebrow {
+    margin-bottom: 4px;
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 850;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.session {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+}
+
+.main-nav a,
+.action-link {
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    padding: 0 12px;
+    background: white;
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 750;
+    text-decoration: none;
+}
+
+.main-nav a:hover,
+.action-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: minmax(280px, 330px) minmax(0, 1fr);
+    gap: 20px;
+    padding: 20px clamp(16px, 4vw, 44px) 42px;
+}
+
+.page-shell {
+    padding: 20px clamp(16px, 4vw, 44px) 42px;
+}
+
+.narrow-page {
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: minmax(280px, 380px) minmax(0, 1fr);
+    gap: 18px;
+}
+
+.sidebar,
+.content {
+    min-width: 0;
+}
+
+.sidebar {
+    display: grid;
+    align-content: start;
+    gap: 14px;
+    position: sticky;
+    top: 98px;
+    max-height: calc(100vh - 110px);
+    overflow: auto;
+    padding-right: 2px;
+}
+
+.panel,
+.hotel-card,
+.notice {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+}
+
+.panel {
+    display: grid;
+    gap: 13px;
+    padding: 14px;
+}
+
+.account-panel {
+    border-color: var(--line-strong);
+}
+
+.muted-panel {
+    background: #fbfcfb;
+}
+
+.panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.stack {
+    display: grid;
+    gap: 11px;
+}
+
+.grid-two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+}
+
+.file-control {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+    align-items: center;
+}
+
+.file-clear {
+    min-height: 39px;
+    padding: 0 12px;
+}
+
+.file-name {
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 650;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    padding: 3px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #f2f5f2;
+}
+
+.tab {
+    min-height: 34px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--muted);
+}
+
+.tab.active {
+    background: white;
+    color: var(--accent);
+    box-shadow: 0 1px 3px rgba(31, 41, 55, 0.08);
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 14px;
+}
+
+.notice {
+    margin-bottom: 14px;
+    padding: 11px 13px;
+    border-color: #f1d4aa;
+    color: var(--amber);
+    background: var(--amber-soft);
+    font-size: 14px;
+    font-weight: 650;
+}
+
+.hotels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 16px;
+}
+
+.hotel-card {
+    display: grid;
+    overflow: hidden;
+    align-content: start;
+    box-shadow: var(--shadow);
+}
+
+.hotel-media {
+    position: relative;
+    overflow: hidden;
+    background: var(--accent-soft);
+}
+
+.hotel-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.hotel-body {
+    display: grid;
+    gap: 13px;
+    padding: 15px;
+}
+
+.hotel-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.address,
+.description,
+.empty {
+    color: var(--muted);
+}
+
+.address {
+    margin-top: 4px;
+    font-size: 13px;
+}
+
+.description {
+    min-height: 42px;
+    line-height: 1.45;
+    font-size: 14px;
+}
+
+.rating {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    display: inline-flex;
+    min-width: 50px;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.93);
+    color: var(--accent);
+    font-weight: 900;
+    box-shadow: 0 6px 16px rgba(31, 41, 55, 0.14);
+}
+
+.rooms {
+    display: grid;
+    gap: 9px;
+}
+
+.room-row {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: 10px;
+    align-items: center;
+    padding: 9px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fbfcfb;
+}
+
+.room-row img {
+    width: 56px;
+    height: 56px;
+    border-radius: 7px;
+    object-fit: cover;
+    background: var(--accent-soft);
+}
+
+.room-meta {
+    min-width: 0;
+}
+
+.room-row strong {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.room-row span {
+    display: block;
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.booking-form {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    gap: 8px;
+    padding-top: 2px;
+}
+
+.booking-form input {
+    min-width: 0;
+}
+
+.card-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+}
+
+details {
+    min-width: 0;
+}
+
+details[open] {
+    grid-column: 1 / -1;
+}
+
+summary {
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: #fbfcfb;
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 800;
+    text-align: center;
+}
+
+summary:hover {
+    border-color: var(--accent);
+}
+
+details form {
+    margin-top: 11px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.profile-card dl {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+}
+
+.profile-card div {
+    display: grid;
+    gap: 4px;
+    padding-bottom: 11px;
+    border-bottom: 1px solid var(--line);
+}
+
+.profile-card div:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.profile-card dt {
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.profile-card dd {
+    margin: 0;
+    font-weight: 750;
+}
+
+.bookings-list {
+    display: grid;
+    gap: 10px;
+}
+
+.booking-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fbfcfb;
+}
+
+.booking-card span {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.booking-card b {
+    color: var(--accent);
+    white-space: nowrap;
+}
+
+@media (max-width: 1040px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+        flex-wrap: wrap;
+    }
+
+    .main-nav {
+        order: 3;
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        position: static;
+        max-height: none;
+        overflow: visible;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        align-items: start;
+    }
+}
+
+@media (max-width: 860px) {
+    .topbar,
+    .layout {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .sidebar {
+        grid-template-columns: 1fr;
+    }
+
+    .hotels-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+        position: static;
+    }
+
+    .main-nav {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+    }
+
+    .brand {
+        align-items: flex-start;
+    }
+
+    .brand-mark {
+        width: 38px;
+        height: 38px;
+    }
+
+    .session,
+    .toolbar,
+    .hotel-heading,
+    .booking-card {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .grid-two,
+    .file-control,
+    .booking-form,
+    .card-actions {
+        grid-template-columns: 1fr;
+    }
+}

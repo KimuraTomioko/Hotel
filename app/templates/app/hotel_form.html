@@ -1,0 +1,27 @@
+{% extends "app/base.html" %}
+
+{% block title %}Новая гостиница{% endblock %}
+{% block header %}Добавить гостиницу{% endblock %}
+
+{% block content %}
+<section class="narrow-page">
+    <div class="panel">
+        <div class="panel-head">
+            <h2>Данные гостиницы</h2>
+        </div>
+        <form id="hotelForm" class="stack">
+            <label>Название <input name="title" required></label>
+            <label>Адрес <input name="address" required></label>
+            <label>Описание <textarea name="description" rows="4" required></textarea></label>
+            <label>Фото
+                <span class="file-control">
+                    <input name="hostel_images" type="file" accept="image/*" required>
+                    <button class="file-clear ghost" type="button">Удалить</button>
+                </span>
+                <span class="file-name">Файл не выбран</span>
+            </label>
+            <button type="submit">Добавить отель</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

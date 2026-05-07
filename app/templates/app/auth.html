@@ -1,0 +1,29 @@
+{% extends "app/base.html" %}
+
+{% block title %}Вход{% endblock %}
+{% block header %}Вход и регистрация{% endblock %}
+
+{% block content %}
+<section class="narrow-page">
+    <div class="panel account-panel">
+        <div class="tabs" role="tablist">
+            <button class="tab active" data-auth-tab="login" type="button">Вход</button>
+            <button class="tab" data-auth-tab="register" type="button">Регистрация</button>
+        </div>
+
+        <form id="loginForm" class="stack auth-panel">
+            <label>Email <input name="email" type="email" required autocomplete="email"></label>
+            <label>Пароль <input name="password" type="password" required autocomplete="current-password"></label>
+            <button type="submit">Войти</button>
+        </form>
+
+        <form id="registerForm" class="stack auth-panel hidden">
+            <label>Email <input name="email" type="email" required autocomplete="email"></label>
+            <label>ФИО <input name="full_name" required autocomplete="name"></label>
+            <label>Телефон <input name="phone" required value="+7" autocomplete="tel"></label>
+            <label>Пароль <input name="password" type="password" required autocomplete="new-password"></label>
+            <button type="submit">Создать аккаунт</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

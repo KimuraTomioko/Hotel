@@ -1,0 +1,38 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Hotel Desk{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'app/styles.css' %}">
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="/">
+            <span class="brand-mark">H</span>
+            <div>
+                <p class="eyebrow">Hotel Desk</p>
+                <h1>{% block header %}Отели и бронирования{% endblock %}</h1>
+            </div>
+        </a>
+        <nav class="main-nav" aria-label="Основная навигация">
+            <a href="/">Каталог</a>
+            <a href="/hotels/new/">Добавить отель</a>
+            <a href="/cabinet/">Кабинет</a>
+            <a href="/auth/">Вход</a>
+        </nav>
+        <div class="session">
+            <span id="sessionStatus">Гость</span>
+            <button id="logoutButton" class="ghost hidden" type="button">Выйти</button>
+        </div>
+    </header>
+
+    <main class="{% block main_class %}page-shell{% endblock %}">
+        <div id="notice" class="notice hidden"></div>
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="{% static 'app/app.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{% extends "app/base.html" %}
+
+{% block title %}Личный кабинет{% endblock %}
+{% block header %}Личный кабинет{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+    <div class="panel">
+        <div class="panel-head">
+            <h2>Профиль</h2>
+        </div>
+        <div id="profileCard" class="profile-card">
+            <p class="empty">Войдите, чтобы увидеть данные профиля.</p>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-head">
+            <h2>Мои бронирования</h2>
+            <button id="refreshBookingsButton" class="ghost" type="button">Обновить</button>
+        </div>
+        <div id="bookingsList" class="bookings-list">
+            <p class="empty">Брони появятся после входа.</p>
+        </div>
+    </div>
+</section>
+
+<template id="bookingTemplate">
+    <article class="booking-card">
+        <div>
+            <strong></strong>
+            <span></span>
+        </div>
+        <b></b>
+    </article>
+</template>
+{% endblock %}

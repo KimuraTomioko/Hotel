@@ -1,0 +1,115 @@
+{% extends "app/base.html" %}
+
+{% block title %}Каталог отелей{% endblock %}
+{% block header %}Каталог отелей{% endblock %}
+{% block main_class %}layout{% endblock %}
+
+{% block content %}
+<aside class="sidebar">
+    <section class="panel">
+        <div class="panel-head">
+            <h2>Фильтры</h2>
+        </div>
+        <form id="filterForm" class="stack">
+            <label>Название <input name="title" placeholder="ТРИ МОРЯ"></label>
+            <label>Адрес <input name="address" placeholder="Набережная"></label>
+            <div class="grid-two">
+                <label>Рейтинг от <input name="min_rating" type="number" min="0" max="5" step="0.1"></label>
+                <label>Цена до <input name="max_price" type="number" min="0" step="100"></label>
+            </div>
+            <label>Тип номера
+                <select name="type">
+                    <option value="">Любой</option>
+                    <option value="standard">Стандартный</option>
+                    <option value="deluxe">Люкс</option>
+                </select>
+            </label>
+            <button type="submit">Применить</button>
+        </form>
+    </section>
+
+    <section class="panel muted-panel">
+        <h2>Быстрые действия</h2>
+        <a class="action-link" href="/hotels/new/">Добавить гостиницу</a>
+        <a class="action-link" href="/cabinet/">Мои бронирования</a>
+    </section>
+</aside>
+
+<section class="content">
+    <div class="toolbar">
+        <div>
+            <p class="eyebrow">Каталог</p>
+            <h2>Отели</h2>
+        </div>
+        <button id="refreshButton" class="ghost" type="button">Обновить</button>
+    </div>
+    <div id="hotelsGrid" class="hotels-grid"></div>
+</section>
+
+<template id="hotelTemplate">
+    <article class="hotel-card">
+        <div class="hotel-media">
+            <img class="hotel-image" alt="">
+            <span class="rating"></span>
+        </div>
+        <div class="hotel-body">
+            <div class="hotel-heading">
+                <div>
+                    <h3></h3>
+                    <p class="address"></p>
+                </div>
+            </div>
+            <p class="description"></p>
+            <div class="rooms"></div>
+
+            <div class="card-actions">
+                <details>
+                    <summary>Добавить номер</summary>
+                    <form class="stack room-form">
+                        <label>Тип
+                            <select name="type" required>
+                                <option value="standard">Стандартный</option>
+                                <option value="deluxe">Люкс</option>
+                            </select>
+                        </label>
+                        <label>Цена за сутки <input name="price_on_one_day" type="number" min="1" required></label>
+                        <label>Описание <textarea name="description" rows="2" required></textarea></label>
+                        <label>Фото
+                            <span class="file-control">
+                                <input name="room_images" type="file" accept="image/*" required>
+                                <button class="file-clear ghost" type="button">Удалить</button>
+                            </span>
+                            <span class="file-name">Файл не выбран</span>
+                        </label>
+                        <button type="submit">Сохранить номер</button>
+                    </form>
+                </details>
+
+                <details>
+                    <summary>Оставить отзыв</summary>
+                    <form class="stack review-form">
+                        <label>Оценка <input name="score" type="number" min="1" max="5" required></label>
+                        <label>Текст <textarea name="text" rows="2" required></textarea></label>
+                        <button type="submit">Отправить отзыв</button>
+                    </form>
+                </details>
+            </div>
+        </div>
+    </article>
+</template>
+
+<template id="roomTemplate">
+    <div class="room-row">
+        <img alt="">
+        <div class="room-meta">
+            <strong></strong>
+            <span></span>
+        </div>
+        <form class="booking-form">
+            <input name="check_in" type="date" required>
+            <input name="check_out" type="date" required>
+            <button type="submit">Бронь</button>
+        </form>
+    </div>
+</template>
+{% endblock %}
