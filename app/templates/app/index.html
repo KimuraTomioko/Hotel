@@ -88,7 +88,16 @@
                 <details>
                     <summary>Оставить отзыв</summary>
                     <form class="stack review-form">
-                        <label>Оценка <input name="score" type="number" min="1" max="5" required></label>
+                        <label>Оценка
+                            <span class="star-rating" data-rating>
+                                <input name="score" type="hidden" required>
+                                <button type="button" data-score="1" aria-label="1 звезда">★</button>
+                                <button type="button" data-score="2" aria-label="2 звезды">★</button>
+                                <button type="button" data-score="3" aria-label="3 звезды">★</button>
+                                <button type="button" data-score="4" aria-label="4 звезды">★</button>
+                                <button type="button" data-score="5" aria-label="5 звёзд">★</button>
+                            </span>
+                        </label>
                         <label>Текст <textarea name="text" rows="2" required></textarea></label>
                         <button type="submit">Отправить отзыв</button>
                     </form>

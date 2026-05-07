@@ -102,6 +102,7 @@ function formToJson(form) {
 function resetForm(form) {
     form.reset();
     syncFileLabels(form);
+    syncStarRatings(form);
 }
 
 function syncFileLabels(root = document) {
@@ -126,6 +127,29 @@ function setupFileControls(root = document) {
             syncFileLabels(label);
         });
     });
+}
+
+function syncStarRatings(root = document) {
+    root.querySelectorAll("[data-rating]").forEach((rating) => {
+        const input = rating.querySelector('input[name="score"]');
+        const value = Number(input?.value || 0);
+        rating.querySelectorAll("button[data-score]").forEach((button) => {
+            button.classList.toggle("active", Number(button.dataset.score) <= value);
+        });
+    });
+}
+
+function setupStarRatings(root = document) {
+    root.querySelectorAll("[data-rating]").forEach((rating) => {
+        const input = rating.querySelector('input[name="score"]');
+        rating.querySelectorAll("button[data-score]").forEach((button) => {
+            button.addEventListener("click", () => {
+                input.value = button.dataset.score;
+                syncStarRatings(rating);
+            });
+        });
+    });
+    syncStarRatings(root);
 }
 
 function setAuthTab(tab) {
@@ -193,6 +217,7 @@ function renderHotels() {
         node.querySelector(".room-form")?.addEventListener("submit", (event) => createRoom(event, hotel.id));
         node.querySelector(".review-form")?.addEventListener("submit", (event) => createReview(event, hotel.id));
         setupFileControls(node);
+        setupStarRatings(node);
         els.hotelsGrid.appendChild(node);
     });
 }
@@ -309,6 +334,11 @@ async function createReview(event, hotelId) {
     const data = formToJson(event.currentTarget);
     data.hotel = hotelId;
 
+    if (!data.score) {
+        showNotice("Выберите оценку звёздами перед отправкой отзыва.");
+        return;
+    }
+
     await api("/api/reviews/", {
         method: "POST",
         headers: headers(),
@@ -394,5 +424,6 @@ els.logoutButton?.addEventListener("click", () => {
 
 renderSession();
 setupFileControls();
+setupStarRatings();
 loadHotels().catch((error) => showNotice(error.message));
 loadCabinet().catch((error) => showNotice(error.message));
