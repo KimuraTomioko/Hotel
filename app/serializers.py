@@ -68,6 +68,7 @@ class RoomSerializer(serializers.ModelSerializer):
 
 class HotelSerializer(serializers.ModelSerializer):
     rooms = serializers.SerializerMethodField()
+    hotel_reviews = serializers.SerializerMethodField()
 
     class Meta:
         model = Hotel
@@ -81,14 +82,22 @@ class HotelSerializer(serializers.ModelSerializer):
             "rating",
             "created_at",
             "rooms",
+            "hotel_reviews",
         ]
-        read_only_fields = ["id", "owner", "created_at", "rating", "rooms"]
+        read_only_fields = ["id", "owner", "created_at", "rating", "rooms", "hotel_reviews"]
 
     def get_rooms(self, obj):
         request = self.context.get("request")
         kwargs = getattr(request, "parser_context", {}).get("kwargs", {}) if request else {}
         if kwargs.get("pk"):
             return RoomSerializer(obj.rooms.all(), many=True, context=self.context).data
+        return []
+
+    def get_hotel_reviews(self, obj):
+        request = self.context.get("request")
+        kwargs = getattr(request, "parser_context", {}).get("kwargs", {}) if request else {}
+        if kwargs.get("pk"):
+            return ReviewSerializer(obj.hotel_reviews.all(), many=True, context=self.context).data
         return []
 
 
@@ -129,6 +138,8 @@ class BookingSerializer(serializers.ModelSerializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
     class Meta:
         model = Review
         fields = [

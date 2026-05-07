@@ -142,10 +142,24 @@ function syncStarRatings(root = document) {
 function setupStarRatings(root = document) {
     root.querySelectorAll("[data-rating]").forEach((rating) => {
         const input = rating.querySelector('input[name="score"]');
-        rating.querySelectorAll("button[data-score]").forEach((button) => {
+        const buttons = rating.querySelectorAll("button[data-score]");
+        
+        buttons.forEach((button) => {
             button.addEventListener("click", () => {
                 input.value = button.dataset.score;
                 syncStarRatings(rating);
+            });
+            
+            button.addEventListener("mouseover", () => {
+                buttons.forEach((btn) => {
+                    btn.classList.toggle("hover", Number(btn.dataset.score) <= Number(button.dataset.score));
+                });
+            });
+        });
+        
+        rating.addEventListener("mouseout", () => {
+            buttons.forEach((btn) => {
+                btn.classList.remove("hover");
             });
         });
     });
@@ -199,6 +213,7 @@ function renderHotels() {
         const description = node.querySelector(".description");
         const rating = node.querySelector(".rating");
         const rooms = node.querySelector(".rooms");
+        const reviews = node.querySelector(".reviews");
 
         if (hotel.hostel_images) image.src = hotel.hostel_images;
         image.alt = hotel.title;
@@ -208,10 +223,16 @@ function renderHotels() {
         rating.textContent = Number(hotel.rating || 0).toFixed(1);
 
         rooms.innerHTML = '<p class="empty">Открываю номера...</p>';
+        reviews.innerHTML = '<p class="empty">Открываю отзывы...</p>';
+        
         loadHotelDetails(hotel.id)
-            .then((details) => renderRooms(rooms, details.rooms || []))
+            .then((details) => {
+                renderRooms(rooms, details.rooms || []);
+                renderReviews(reviews, details.hotel_reviews || []);
+            })
             .catch((error) => {
                 rooms.innerHTML = `<p class="empty">${readableError(error.message)}</p>`;
+                reviews.innerHTML = `<p class="empty">${readableError(error.message)}</p>`;
             });
 
         node.querySelector(".room-form")?.addEventListener("submit", (event) => createRoom(event, hotel.id));
@@ -243,6 +264,38 @@ function renderRooms(container, rooms) {
         node.querySelector(".booking-form").addEventListener("submit", (event) => createBooking(event, room.id));
         container.appendChild(node);
     });
+}
+
+function renderReviews(container, reviews) {
+    container.innerHTML = "";
+
+    if (!reviews.length) {
+        container.innerHTML = '<p class="empty">Отзывов пока нет.</p>';
+        return;
+    }
+
+    const reviewsList = document.createElement("ul");
+    reviewsList.className = "reviews-list";
+    
+    reviews.forEach((review) => {
+        const li = document.createElement("li");
+        li.className = "review-item";
+        
+        const rating = "★".repeat(review.score) + "☆".repeat(5 - review.score);
+        
+        li.innerHTML = `
+            <div class="review-header">
+                <strong>${review.user.full_name || review.user.email}</strong>
+                <span class="stars">${rating}</span>
+            </div>
+            <p>${review.text}</p>
+            <small>${new Date(review.created_at).toLocaleDateString('ru-RU')}</small>
+        `;
+        
+        reviewsList.appendChild(li);
+    });
+    
+    container.appendChild(reviewsList);
 }
 
 async function login(event) {
