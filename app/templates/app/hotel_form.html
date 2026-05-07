@@ -1,27 +1,40 @@
 {% extends "app/base.html" %}
 
-{% block title %}Новая гостиница{% endblock %}
-{% block header %}Добавить гостиницу{% endblock %}
+{% block title %}Добавить гостиницу — Hotel Desk{% endblock %}
 
 {% block content %}
-<section class="narrow-page">
-    <div class="panel">
+<div class="page-banner">
+    <div class="eyebrow">Управление</div>
+    <h1>Добавить гостиницу</h1>
+    <p style="margin-top:6px;">Заполните данные и загрузите фотографию</p>
+</div>
+
+<div id="notice" class="notice hidden" style="margin: 0 clamp(16px,4vw,52px) 20px;"></div>
+
+<div style="padding: 0 clamp(16px,4vw,52px) 60px; max-width: 580px;">
+    <div class="panel panel-gold">
         <div class="panel-head">
             <h2>Данные гостиницы</h2>
         </div>
         <form id="hotelForm" class="stack">
-            <label>Название <input name="title" required></label>
-            <label>Адрес <input name="address" required></label>
-            <label>Описание <textarea name="description" rows="4" required></textarea></label>
-            <label>Фото
+            <label>Название гостиницы
+                <input name="title" required placeholder="Например: Grand Palace">
+            </label>
+            <label>Адрес
+                <input name="address" required placeholder="Город, улица, дом">
+            </label>
+            <label>Описание
+                <textarea name="description" rows="4" required placeholder="Расскажите об отеле..."></textarea>
+            </label>
+            <label>Фотография гостиницы
                 <span class="file-control">
                     <input name="hostel_images" type="file" accept="image/*" required>
-                    <button class="file-clear ghost" type="button">Удалить</button>
+                    <button class="file-clear ghost" type="button">✕</button>
                 </span>
                 <span class="file-name">Файл не выбран</span>
             </label>
-            <button type="submit">Добавить отель</button>
+            <button type="submit" class="primary" style="margin-top:8px;">Добавить отель</button>
         </form>
     </div>
-</section>
+</div>
 {% endblock %}

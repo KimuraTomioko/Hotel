@@ -1,16 +1,24 @@
 {% extends "app/base.html" %}
 
-{% block title %}Личный кабинет{% endblock %}
-{% block header %}Личный кабинет{% endblock %}
+{% block title %}Личный кабинет — Hotel Desk{% endblock %}
 
 {% block content %}
-<section class="dashboard">
-    <div class="panel">
-        <div class="panel-head">
-            <h2>Профиль</h2>
-        </div>
-        <div id="profileCard" class="profile-card">
-            <p class="empty">Войдите, чтобы увидеть данные профиля.</p>
+<div class="page-banner">
+    <div class="eyebrow">Личный кабинет</div>
+    <h1>Мой профиль</h1>
+</div>
+
+<div id="notice" class="notice hidden" style="margin: 0 clamp(16px,4vw,52px) 20px;"></div>
+
+<div class="dashboard" style="padding: 0 clamp(16px,4vw,52px) 60px;">
+    <div style="display:grid; gap:16px; align-content:start;">
+        <div class="panel panel-gold">
+            <div class="panel-head">
+                <h2>Профиль</h2>
+            </div>
+            <div id="profileCard" class="profile-card">
+                <p class="empty">Войдите, чтобы увидеть данные профиля.</p>
+            </div>
         </div>
     </div>
 
@@ -23,7 +31,7 @@
             <p class="empty">Брони появятся после входа.</p>
         </div>
     </div>
-</section>
+</div>
 
 <template id="bookingTemplate">
     <article class="booking-card">

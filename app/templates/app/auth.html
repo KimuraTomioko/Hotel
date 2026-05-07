@@ -1,29 +1,54 @@
 {% extends "app/base.html" %}
 
-{% block title %}Вход{% endblock %}
-{% block header %}Вход и регистрация{% endblock %}
+{% block title %}Вход — Hotel Desk{% endblock %}
 
 {% block content %}
-<section class="narrow-page">
-    <div class="panel account-panel">
-        <div class="tabs" role="tablist">
-            <button class="tab active" data-auth-tab="login" type="button">Вход</button>
-            <button class="tab" data-auth-tab="register" type="button">Регистрация</button>
+<div id="notice" class="notice hidden" style="position:fixed;top:80px;left:50%;transform:translateX(-50%);width:340px;z-index:200;"></div>
+
+<div class="auth-wrapper">
+    <div class="auth-box">
+        <div class="auth-logo">
+            <div class="auth-logo-mark">H</div>
+            <h2>Hotel Desk</h2>
+            <p>Войдите или создайте аккаунт</p>
         </div>
 
-        <form id="loginForm" class="stack auth-panel">
-            <label>Email <input name="email" type="email" required autocomplete="email"></label>
-            <label>Пароль <input name="password" type="password" required autocomplete="current-password"></label>
-            <button type="submit">Войти</button>
-        </form>
+        <div class="panel panel-gold">
+            <div class="tabs" role="tablist">
+                <button class="tab active" data-auth-tab="login" type="button">Вход</button>
+                <button class="tab" data-auth-tab="register" type="button">Регистрация</button>
+            </div>
 
-        <form id="registerForm" class="stack auth-panel hidden">
-            <label>Email <input name="email" type="email" required autocomplete="email"></label>
-            <label>ФИО <input name="full_name" required autocomplete="name"></label>
-            <label>Телефон <input name="phone" required value="+7" autocomplete="tel"></label>
-            <label>Пароль <input name="password" type="password" required autocomplete="new-password"></label>
-            <button type="submit">Создать аккаунт</button>
-        </form>
+            <form id="loginForm" class="stack auth-panel">
+                <label>Email
+                    <input name="email" type="email" required autocomplete="email" placeholder="your@email.com">
+                </label>
+                <label>Пароль
+                    <input name="password" type="password" required autocomplete="current-password" placeholder="••••••••">
+                </label>
+                <button type="submit" class="primary" style="margin-top: 4px;">Войти</button>
+            </form>
+
+            <form id="registerForm" class="stack auth-panel hidden">
+                <label>Email
+                    <input name="email" type="email" required autocomplete="email" placeholder="your@email.com">
+                </label>
+                <label>ФИО
+                    <input name="full_name" required autocomplete="name" placeholder="Иванов Иван Иванович">
+                </label>
+                <label>Телефон
+                    <input name="phone" required value="+7" autocomplete="tel" placeholder="+7 (999) 000-00-00">
+                </label>
+                <label>Пароль
+                    <input name="password" type="password" required autocomplete="new-password" placeholder="Минимум 8 символов">
+                </label>
+                <button type="submit" class="primary" style="margin-top: 4px;">Создать аккаунт</button>
+            </form>
+        </div>
+
+        <p style="text-align:center; font-size:12px; color:var(--ink3); margin-top:20px;">
+            Бронируя, вы соглашаетесь с условиями использования сервиса
+        </p>
     </div>
-</section>
+</div>
 {% endblock %}

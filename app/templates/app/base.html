@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Hotel Desk{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="{% static 'app/styles.css' %}">
 </head>
 <body>
@@ -12,24 +14,25 @@
         <a class="brand" href="/">
             <span class="brand-mark">H</span>
             <div>
-                <p class="eyebrow">Hotel Desk</p>
-                <h1>{% block header %}Отели и бронирования{% endblock %}</h1>
+                <div class="brand-name">Hotel Desk</div>
+                <div class="brand-sub">Luxury Stays</div>
             </div>
         </a>
+
         <nav class="main-nav" aria-label="Основная навигация">
             <a href="/">Каталог</a>
             <a href="/hotels/new/">Добавить отель</a>
             <a href="/cabinet/">Кабинет</a>
-            <a href="/auth/">Вход</a>
+            <a href="/auth/">Войти</a>
         </nav>
+
         <div class="session">
-            <span id="sessionStatus">Гость</span>
+            <span id="sessionStatus" class="session-email">Гость</span>
             <button id="logoutButton" class="ghost hidden" type="button">Выйти</button>
         </div>
     </header>
 
     <main class="{% block main_class %}page-shell{% endblock %}">
-        <div id="notice" class="notice hidden"></div>
         {% block content %}{% endblock %}
     </main>
 

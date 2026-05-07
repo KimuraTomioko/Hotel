@@ -1,36 +1,49 @@
 {% extends "app/base.html" %}
 
-{% block title %}Каталог отелей{% endblock %}
-{% block header %}Каталог отелей{% endblock %}
+{% block title %}Каталог отелей — Hotel Desk{% endblock %}
 {% block main_class %}layout{% endblock %}
 
 {% block content %}
 <aside class="sidebar">
-    <section class="panel">
-        <div class="panel-head">
-            <h2>Фильтры</h2>
-        </div>
+    <div style="padding-bottom: 4px;">
+        <div class="eyebrow">Поиск</div>
+        <p style="font-size: 13px; color: var(--ink3); margin-top: 4px;">Найдите идеальный отель</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <section class="panel" style="padding: 16px;">
         <form id="filterForm" class="stack">
-            <label>Название <input name="title" placeholder="ТРИ МОРЯ"></label>
-            <label>Адрес <input name="address" placeholder="Набережная"></label>
+            <label>Название
+                <input name="title" placeholder="Введите название">
+            </label>
+            <label>Адрес
+                <input name="address" placeholder="Город или улица">
+            </label>
             <div class="grid-two">
-                <label>Рейтинг от <input name="min_rating" type="number" min="0" max="5" step="0.1"></label>
-                <label>Цена до <input name="max_price" type="number" min="0" step="100"></label>
+                <label>Рейтинг от
+                    <input name="min_rating" type="number" min="0" max="5" step="0.1" placeholder="0.0">
+                </label>
+                <label>Цена до
+                    <input name="max_price" type="number" min="0" step="100" placeholder="∞">
+                </label>
             </div>
             <label>Тип номера
                 <select name="type">
-                    <option value="">Любой</option>
+                    <option value="">Любой тип</option>
                     <option value="standard">Стандартный</option>
                     <option value="deluxe">Люкс</option>
                 </select>
             </label>
-            <button type="submit">Применить</button>
+            <button type="submit" class="primary">Найти отели</button>
         </form>
     </section>
 
-    <section class="panel muted-panel">
-        <h2>Быстрые действия</h2>
-        <a class="action-link" href="/hotels/new/">Добавить гостиницу</a>
+    <div class="divider"></div>
+
+    <section style="display: grid; gap: 8px;">
+        <div class="filter-section-label">Быстрые действия</div>
+        <a class="action-link" href="/hotels/new/">+ Добавить гостиницу</a>
         <a class="action-link" href="/cabinet/">Мои бронирования</a>
     </section>
 </aside>
@@ -38,12 +51,17 @@
 <section class="content">
     <div class="toolbar">
         <div>
-            <p class="eyebrow">Каталог</p>
-            <h2>Отели</h2>
+            <div class="eyebrow">Каталог</div>
+            <h1 style="font-size: 24px; margin-top: 4px;">Отели</h1>
         </div>
         <button id="refreshButton" class="ghost" type="button">Обновить</button>
     </div>
-    <div id="hotelsGrid" class="hotels-grid"></div>
+
+    <div id="notice" class="notice hidden"></div>
+
+    <div id="hotelsGrid" class="hotels-grid">
+        <p class="empty">Загрузка...</p>
+    </div>
 </section>
 
 <template id="hotelTemplate">
@@ -54,35 +72,36 @@
         </div>
         <div class="hotel-body">
             <div class="hotel-heading">
-                <div>
-                    <h3></h3>
-                    <p class="address"></p>
-                </div>
+                <h3></h3>
+                <p class="address"></p>
             </div>
             <p class="description"></p>
             <div class="rooms"></div>
             <div class="reviews"></div>
-
             <div class="card-actions">
                 <details>
                     <summary>Добавить номер</summary>
                     <form class="stack room-form">
-                        <label>Тип
+                        <label>Тип номера
                             <select name="type" required>
                                 <option value="standard">Стандартный</option>
                                 <option value="deluxe">Люкс</option>
                             </select>
                         </label>
-                        <label>Цена за сутки <input name="price_on_one_day" type="number" min="1" required></label>
-                        <label>Описание <textarea name="description" rows="2" required></textarea></label>
+                        <label>Цена за сутки
+                            <input name="price_on_one_day" type="number" min="1" required placeholder="₽">
+                        </label>
+                        <label>Описание
+                            <textarea name="description" rows="2" required></textarea>
+                        </label>
                         <label>Фото
                             <span class="file-control">
                                 <input name="room_images" type="file" accept="image/*" required>
-                                <button class="file-clear ghost" type="button">Удалить</button>
+                                <button class="file-clear ghost" type="button">✕</button>
                             </span>
                             <span class="file-name">Файл не выбран</span>
                         </label>
-                        <button type="submit">Сохранить номер</button>
+                        <button type="submit" class="primary">Сохранить номер</button>
                     </form>
                 </details>
 
@@ -99,9 +118,10 @@
                                 <button type="button" data-score="5" aria-label="5 звёзд">★</button>
                             </span>
                         </label>
-                        <label>Текст <textarea name="text" rows="2" required></textarea></label>
-                        <p class="form-message hidden"></p>
-                        <button type="submit">Отправить отзыв</button>
+                        <label>Ваш отзыв
+                            <textarea name="text" rows="2" required></textarea>
+                        </label>
+                        <button type="submit" class="primary">Отправить отзыв</button>
                     </form>
                 </details>
             </div>
@@ -119,7 +139,7 @@
         <form class="booking-form">
             <input name="check_in" type="date" required>
             <input name="check_out" type="date" required>
-            <button type="submit">Бронь</button>
+            <button type="submit" class="primary">Бронь</button>
         </form>
     </div>
 </template>
